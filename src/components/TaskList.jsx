@@ -9,7 +9,8 @@ const TaskList = ({task}) => {
     const dispatch= useDispatch();
     const handleDelete=()=>{
         dispatch(deleteTask(task.index))
-        
+ 
+        localStorage.setItem("tasks",JSON.stringify(task.index))
     }
      const handleToggleStatus=()=>{
         dispatch(toggleStatus(task.index))
