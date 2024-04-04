@@ -12,6 +12,7 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: (state, action) => {
       const newTask = {
+        id: state.tasks.length + 1, // Generate unique ID
         task: action.payload,
         status: "pending",
         index: state.tasks.length 
@@ -19,12 +20,10 @@ const tasksSlice = createSlice({
       state.tasks.push(newTask);
     },
     deleteTask: (state, action) => {
-      state.tasks.splice(action.payload, 1);
+      state.tasks = state.tasks.filter(task => task.id !== action.payload);
     },
     toggleStatus: (state, action) => {
-      const taskIndex = action.payload;
-      const task = state.tasks[taskIndex];
-      
+      const task = state.tasks.find(task => task.id === action.payload);
       if (task) {
         task.status = task.status === "pending" ? "done" : "pending";
       }

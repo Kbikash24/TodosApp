@@ -7,13 +7,15 @@ import { useDispatch } from "react-redux";
 
 const TaskList = ({task}) => {
     const dispatch= useDispatch();
-    const handleDelete=()=>{
-        dispatch(deleteTask(task.index))
- 
-        localStorage.setItem("tasks",JSON.stringify(task.index))
-    }
+    const handleDelete = () => {
+      dispatch(deleteTask(task.id));
+      const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+      const updatedTasks = storedTasks.filter(item => item.id !== task.id);
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    };
+    
      const handleToggleStatus=()=>{
-        dispatch(toggleStatus(task.index))
+        dispatch(toggleStatus(task.id))
   }
   return (
     <div className="task">
