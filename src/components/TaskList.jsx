@@ -14,8 +14,7 @@ const TaskList = ({task}) => {
     }
      const handleToggleStatus=()=>{
         dispatch(toggleStatus(task.index))
-  
-     }
+  }
   return (
     <div className="task">
       <div className="task-sub">
