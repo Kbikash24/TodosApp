@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Define the initial state
 const initialState = {
-  tasks: []
+  tasks: [],
+  lastId: 0 // Track the last assigned ID
 };
 
 // Create a slice using createSlice
@@ -12,20 +13,30 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: (state, action) => {
       const newTask = {
-        id: state.tasks.length + 1, // Generate unique ID
+        id: state.lastId + 1, // Generate unique ID
         task: action.payload,
         status: "pending",
         index: state.tasks.length 
       };
       state.tasks.push(newTask);
+      state.lastId++; // Update last assigned ID
     },
     deleteTask: (state, action) => {
-      state.tasks = state.tasks.filter(task => task.id !== action.payload);
+      const taskId = action.payload;
+      state.tasks = state.tasks.filter(task => task.id !== taskId);
     },
     toggleStatus: (state, action) => {
-      const task = state.tasks.find(task => task.id === action.payload);
+      const taskId = action.payload;
+      const task = state.tasks.find(task => task.id === taskId);
       if (task) {
         task.status = task.status === "pending" ? "done" : "pending";
+      }
+    },
+    editTask: (state, action) => {
+      const { id, updatedTask } = action.payload;
+      const task = state.tasks.find(task => task.id === id);
+      if (task) {
+        task.task = updatedTask;
       }
     },
     setTasks: (state, action) => {
@@ -36,6 +47,6 @@ const tasksSlice = createSlice({
 
 export const { reducer: tasksReducer, actions: tasksActions } = tasksSlice;
 
-export const { addTask, deleteTask, toggleStatus, setTasks } = tasksSlice.actions;
+export const { addTask, deleteTask, toggleStatus, editTask, setTasks } = tasksSlice.actions;
 
 export default tasksSlice;
