@@ -43,7 +43,7 @@ const TaskList = ({ task }) => {
           task.task
         )}
       </div>
-      <div className="buttons">
+      <div >
         {isEditing ? (
           <button onClick={handleSaveEdit}>Save</button>
         ) : (

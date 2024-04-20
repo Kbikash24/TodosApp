@@ -84,3 +84,12 @@ background: linear-gradient(135deg,hsl(300, 3%, 7%),rgb(0, 0, 0));
     .unchecked svg {
       fill: red; /* Change color for unchecked icon */
     }
+
+    button{
+      background: #61dafb;
+      outline: none;
+      color: black;
+      padding: 5px;
+      border:1px solid #61dafb;
+      border-radius: 5px;
+    }
